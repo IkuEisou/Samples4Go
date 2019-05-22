@@ -5,13 +5,29 @@ import (
 	. "github.com/goadesign/goa/design/apidsl"
 )
 
-var _ = API("adder", func() {
-	Title("The adder API")
-	Description("A teaser for goa")
-	Host("localhost:8080")
-	Scheme("http")
+var _ = Resource("user", func() {
+	Action("list", func() {
+		Routing(GET("user"))
+		Description("Show the users")
+		Response(OK, CollectionOf(User))
+		// 本番では404返しちゃう
+		Response(NotFound)
+		Response(Unauthorized)
+		Response(BadRequest, ErrorMedia)
+	})
 })
 
+var _ = Resource("book", func() {
+	Action("list", func() {
+		Routing(GET("book"))
+		Description("Show the books")
+		Response(OK, CollectionOf(Book))
+		// 本番では404返しちゃう
+		Response(NotFound)
+		Response(Unauthorized)
+		Response(BadRequest, ErrorMedia)
+	})
+})
 var _ = Resource("operands", func() {
 	Action("add", func() {
 		Routing(GET("add/:left/:right"))
