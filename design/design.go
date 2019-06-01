@@ -7,6 +7,7 @@ import (
 
 var _ = API("adder", func() {
 	Title("The adder API")
+	Version("V1")
 	Description("A teaser for goa")
 	Host("localhost:8080")
 	Scheme("http")
@@ -29,4 +30,8 @@ var _ = Resource("swagger", func() {
 		Methods("GET") // Allow all origins to retrieve the Swagger JSON (CORS)
 	})
 	Files("/swagger.json", "swagger/swagger.json")
+})
+
+var _ = Resource("swagger-ui", func() {
+	Files("/swagger-ui/*filepath", "swagger-ui/")
 })
