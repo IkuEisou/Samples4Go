@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=goa-adder/design
-// --out=$(GOPATH)\src\goa-adder
+// --design=github.com/IkuEisou/goa-adder/design
+// --out=$(GOPATH)/src/github.com/ikueisou/goa-adder
 // --version=v1.3.1
 
 package test
@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/goatest"
-	"goa-adder/app"
+	"github.com/ikueisou/goa-adder/app"
 	"io"
 	"log"
 	"net/http"

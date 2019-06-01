@@ -1,10 +1,9 @@
 package main
 
 import (
-	"goa-adder/app"
-	"strconv"
-
 	"github.com/goadesign/goa"
+	"github.com/ikueisou/goa-adder/app"
+	"strconv"
 )
 
 // OperandsController implements the operands resource.
@@ -20,7 +19,9 @@ func NewOperandsController(service *goa.Service) *OperandsController {
 // Add runs the add action.
 func (c *OperandsController) Add(ctx *app.AddOperandsContext) error {
 	// OperandsController_Add: start_implement
+
 	sum := ctx.Left + ctx.Right
 	return ctx.OK([]byte(strconv.Itoa(sum)))
+
 	// OperandsController_Add: end_implement
 }

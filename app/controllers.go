@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=goa-adder/design
-// --out=$(GOPATH)\src\goa-adder
+// --design=github.com/IkuEisou/goa-adder/design
+// --out=$(GOPATH)/src/github.com/ikueisou/goa-adder
 // --version=v1.3.1
 
 package app
@@ -99,4 +99,24 @@ func handleSwaggerOrigin(h goa.Handler) goa.Handler {
 
 		return h(ctx, rw, req)
 	}
+}
+
+// SwaggerUIController is the controller interface for the SwaggerUI actions.
+type SwaggerUIController interface {
+	goa.Muxer
+	goa.FileServer
+}
+
+// MountSwaggerUIController "mounts" a SwaggerUI resource controller on the given service.
+func MountSwaggerUIController(service *goa.Service, ctrl SwaggerUIController) {
+	initService(service)
+	var h goa.Handler
+
+	h = ctrl.FileHandler("/swagger-ui/*filepath", "swagger-ui/")
+	service.Mux.Handle("GET", "/swagger-ui/*filepath", ctrl.MuxHandler("serve", h, nil))
+	service.LogInfo("mount", "ctrl", "SwaggerUI", "files", "swagger-ui/", "route", "GET /swagger-ui/*filepath")
+
+	h = ctrl.FileHandler("/swagger-ui/", "swagger-ui/index.html")
+	service.Mux.Handle("GET", "/swagger-ui/", ctrl.MuxHandler("serve", h, nil))
+	service.LogInfo("mount", "ctrl", "SwaggerUI", "files", "swagger-ui/index.html", "route", "GET /swagger-ui/")
 }

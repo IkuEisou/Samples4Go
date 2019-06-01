@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=goa-adder/design
-// --out=$(GOPATH)\src\goa-adder
+// --design=github.com/IkuEisou/goa-adder/design
+// --out=$(GOPATH)/src/github.com/ikueisou/goa-adder
 // --version=v1.3.1
 
 package app

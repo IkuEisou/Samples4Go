@@ -1,12 +1,11 @@
-//go:generate goagen bootstrap -d goa-adder/design
+//go:generate goagen bootstrap -d github.com/IkuEisou/goa-adder/design
 
 package main
 
 import (
-	"goa-adder/app"
-
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/middleware"
+	"github.com/ikueisou/goa-adder/app"
 )
 
 func main() {
@@ -22,10 +21,12 @@ func main() {
 	// Mount "operands" controller
 	c := NewOperandsController(service)
 	app.MountOperandsController(service, c)
-
-	//Mount "Swagger" controller
-	cs := NewSwaggerController(service)
-	app.MountSwaggerController(service, cs)
+	// Mount "swagger" controller
+	c2 := NewSwaggerController(service)
+	app.MountSwaggerController(service, c2)
+	// Mount "swagger-ui" controller
+	c3 := NewSwaggerUIController(service)
+	app.MountSwaggerUIController(service, c3)
 
 	// Start service
 	if err := service.ListenAndServe(":8080"); err != nil {
